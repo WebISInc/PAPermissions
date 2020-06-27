@@ -21,6 +21,7 @@ public enum Constants {
 		static let photoLibrary             = "NSPhotoLibraryUsageDescription"
 		static let mediaLibrary             = "NSAppleMusicUsageDescription"
 		static let bluetooth				= "NSBluetoothPeripheralUsageDescription"
+		static let siri						= "NSSiriUsageDescription"
 	}
 }
 
@@ -44,6 +45,17 @@ open class PAPermissionsViewController: UIViewController, PAPermissionsViewDeleg
 			self.permissionsView.titleLabel.text = text
 		}
 		
+	}
+	
+	public var titleAttributedText: NSAttributedString? {
+		get {
+			return self.permissionsView.titleLabel.attributedText
+		}
+
+		set(text) {
+			self.permissionsView.titleLabel.attributedText = text
+		}
+
 	}
 	
 	public var detailsText: String? {

@@ -17,6 +17,9 @@ class PAPermissionsTableViewCell: UITableViewCell {
 	let detailsLabel: UILabel = UILabel()
 	
 	var permission: PAPermissionsItem?
+	var titleFont = UIFont(name: "HelveticaNeue-Light", size: 15)
+	var detailsFont = UIFont(name: "HelveticaNeue-Light", size: 11)
+	var buttonFont = UIFont(name: "HelveticaNeue-Bold", size: 12)
 	
 	fileprivate let rightDetailsContainer: UIView = UIView()
 	fileprivate let enableButton: UIButton = UIButton(type: .system)
@@ -101,7 +104,7 @@ class PAPermissionsTableViewCell: UITableViewCell {
 		self.titleLabel.text = "Title"
 		self.titleLabel.adjustsFontSizeToFitWidth = true
 		
-		self.titleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 15)
+		self.titleLabel.font = titleFont
 		self.titleLabel.minimumScaleFactor = 0.1
 		self.titleLabel.textColor = self.tintColor
 	}
@@ -112,7 +115,7 @@ class PAPermissionsTableViewCell: UITableViewCell {
 		self.detailsLabel.text = "details"
 		self.detailsLabel.adjustsFontSizeToFitWidth = true
 		
-		self.detailsLabel.font = UIFont(name: "HelveticaNeue-Light", size: 11)
+		self.detailsLabel.font = detailsFont
 		self.detailsLabel.minimumScaleFactor = 0.1
 		self.detailsLabel.textColor = self.tintColor
 	}
@@ -187,7 +190,7 @@ class PAPermissionsTableViewCell: UITableViewCell {
 		self.checkingIndicator.isHidden = true
 		self.checkingIndicator.stopAnimating()
 		self.enableButton.setTitle(NSLocalizedString(title, comment: ""), for: UIControl.State())
-		self.enableButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 12)
+		self.enableButton.titleLabel?.font = buttonFont
 		self.enableButton.setImage(nil, for: UIControl.State())
 		self.enableButton.titleLabel?.minimumScaleFactor = 0.1
 		self.enableButton.titleLabel?.adjustsFontSizeToFitWidth  = true
