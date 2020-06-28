@@ -48,7 +48,7 @@ public class PACameraPermissionsCheck: PAPermissionsCheck {
 					if result {
 						self.status = .enabled
 					}else{
-						self.status = .disabled
+						self.status = .denied
 					}
 				})
 				self.updateStatus();

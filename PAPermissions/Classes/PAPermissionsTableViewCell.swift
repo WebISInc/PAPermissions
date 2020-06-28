@@ -77,16 +77,16 @@ class PAPermissionsTableViewCell: UITableViewCell {
 		             "rightDetailsContainer": self.rightDetailsContainer] as [String:UIView]
 
 		let allConstraints = PAConstraintsUtils.concatenateConstraintsFromString([
-			"V:|-2-[iconImageView]-2-|",
 			"H:|-0-[iconImageView(15)]",
-			"V:|-2-[rightDetailsContainer]-2-|",
 			"H:[rightDetailsContainer(58)]-0-|",
-			"V:|-8-[titleLabel(18)]-2-[detailsLabel(13)]",
+			"V:|-8-[titleLabel(18)]-2-[detailsLabel]-8-|",
 			"H:[iconImageView]-8-[titleLabel]-4-[rightDetailsContainer]",
 			"H:[iconImageView]-8-[detailsLabel]-4-[rightDetailsContainer]"
 			], views: views)
 		
 		NSLayoutConstraint.activate(allConstraints)
+		iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		rightDetailsContainer.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		self.setupEnableButton(.disabled)
 	}
 	
@@ -114,9 +114,10 @@ class PAPermissionsTableViewCell: UITableViewCell {
 		self.addSubview(detailsLabel)
 		self.detailsLabel.text = "details"
 		self.detailsLabel.adjustsFontSizeToFitWidth = true
-		
+		self.detailsLabel.minimumScaleFactor = 0.9
+		self.detailsLabel.numberOfLines = 0
+		self.detailsLabel.lineBreakMode = .byWordWrapping
 		self.detailsLabel.font = detailsFont
-		self.detailsLabel.minimumScaleFactor = 0.1
 		self.detailsLabel.textColor = self.tintColor
 	}
 	
@@ -130,7 +131,6 @@ class PAPermissionsTableViewCell: UITableViewCell {
 	fileprivate func setupEnableButton(_ status: PAPermissionsStatus) {
 		enableButton.translatesAutoresizingMaskIntoConstraints = false
 		self.rightDetailsContainer.addSubview(enableButton)
-		self.enableButton.backgroundColor = UIColor.red
 		self.enableButton.addTarget(self, action: #selector(PAPermissionsTableViewCell._didSelectItem), for: .touchUpInside)
 		
 		checkingIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -159,19 +159,19 @@ class PAPermissionsTableViewCell: UITableViewCell {
 				self.enableButton.layer.cornerRadius = 0.0
 				self.enableButton.layer.borderColor = UIColor.clear.cgColor
 				self.enableButton.layer.borderWidth = 0.0
-				self.enableButton.setImage(UIImage(named: "pa_checkmark_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), for: UIControl.State())
+				self.enableButton.setImage(UIImage(named: "pa_checkmark_icon"), for: UIControl.State())
 				self.enableButton.imageView?.contentMode = .scaleAspectFit
 				self.enableButton.isUserInteractionEnabled = false
 			}else{
 				self.setupEnableDisableButton(title: "Disable")
 			}
-		}else if status == .disabled || status == .denied {
+		}else if status == .disabled {
 			self.setupEnableDisableButton(title: "Enable")
 		}else if status == .checking {
 			self.enableButton.isHidden = true
 			self.checkingIndicator.isHidden = false
 			self.checkingIndicator.startAnimating()
-		}else if status == .unavailable {
+		}else if status == .unavailable || status == .denied {
 			self.enableButton.isHidden = false
 			self.checkingIndicator.isHidden = true
 			self.checkingIndicator.stopAnimating()
@@ -179,7 +179,7 @@ class PAPermissionsTableViewCell: UITableViewCell {
 			self.enableButton.layer.cornerRadius = 0.0
 			self.enableButton.layer.borderColor = UIColor.clear.cgColor
 			self.enableButton.layer.borderWidth = 0.0
-			self.enableButton.setImage(UIImage(named: "pa_cancel_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), for: UIControl.State())
+			self.enableButton.setImage(UIImage(named: "pa_cancel_icon"), for: UIControl.State())
 			self.enableButton.imageView?.contentMode = .scaleAspectFit
 			self.enableButton.isUserInteractionEnabled = false
 		}

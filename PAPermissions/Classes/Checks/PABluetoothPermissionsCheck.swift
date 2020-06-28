@@ -40,6 +40,8 @@ public class PABluetoothPermissionsCheck: PAPermissionsCheck, CBCentralManagerDe
 			self.status = .disabled
 		case .unknown:
 			self.status = .unavailable
+		@unknown default:
+			self.status = .disabled
 		}
 		
 		if self.status != currentStatus {

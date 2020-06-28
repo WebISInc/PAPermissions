@@ -17,11 +17,18 @@ public class PAMicrophonePermissionsCheck: PAPermissionsCheck {
 		let currentStatus = self.status
 
 		if AVAudioSession.sharedInstance().isInputAvailable {
-			if AVAudioSession.sharedInstance().recordPermission == .granted {
+			let permission = AVAudioSession.sharedInstance().recordPermission
+			switch permission {
+			case .granted:
 				self.status = .enabled
-			}else{
+			case .denied:
+				self.status = .disabled
+			case .undetermined:
+				self.status = .disabled
+			@unknown default:
 				self.status = .disabled
 			}
+			
 		}else{
 			self.status = .unavailable
 		}
@@ -39,7 +46,7 @@ public class PAMicrophonePermissionsCheck: PAPermissionsCheck {
 				if result {
 					self.status = .enabled
 				}else{
-					self.status = .disabled
+					self.status = .denied
 				}
 				
 				self.updateStatus()

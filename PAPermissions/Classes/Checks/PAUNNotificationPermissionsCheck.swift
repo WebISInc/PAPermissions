@@ -9,7 +9,6 @@
 import UIKit
 import UserNotifications
 
-@available(iOS 10.0, *)
 public class PAUNNotificationPermissionsCheck: PAPermissionsCheck {
 
 	public let notificationCenter = UNUserNotificationCenter.current()
@@ -29,6 +28,8 @@ public class PAUNNotificationPermissionsCheck: PAPermissionsCheck {
 				self.status = .disabled
 			case .provisional:
 				self.status = .enabled
+			@unknown default:
+				self.status = .disabled
 			}
 
 			self.authorizationStatus = settings.authorizationStatus
@@ -44,11 +45,11 @@ public class PAUNNotificationPermissionsCheck: PAPermissionsCheck {
 		if authorizationStatus == .denied {
 			self.openSettings()
 		} else {
-			notificationCenter.requestAuthorization(options: [.badge, .sound, .alert, .carPlay], completionHandler: { (success, error) in
+			notificationCenter.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: { (success, error) in
 				if success && error == nil {
 					self.status = .enabled
 				} else {
-					self.status = .disabled
+					self.status = .denied
 				}
 				self.updateStatus()
 			})

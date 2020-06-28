@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 	@IBAction func didShowPermissions(_ sender: AnyObject) {
 		
 		if let controller = self.storyboard?.instantiateViewController(withIdentifier: "CustomPermissionsViewController") {
+			controller.modalPresentationStyle = .fullScreen
 			self.present(controller, animated: true, completion: nil)
 		}
 	}

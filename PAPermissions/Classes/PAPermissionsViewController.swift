@@ -69,6 +69,39 @@ open class PAPermissionsViewController: UIViewController, PAPermissionsViewDeleg
 		
 	}
 	
+	public var tableCellTitleFont: UIFont? {
+		get {
+			return self.permissionsView.tableCellTitleFont
+		}
+		
+		set(font) {
+			self.permissionsView.tableCellTitleFont = font
+		}
+		
+	}
+	
+	public var tableCellDetailsFont: UIFont? {
+		get {
+			return self.permissionsView.tableCellDetailsFont
+		}
+		
+		set(font) {
+			self.permissionsView.tableCellDetailsFont = font
+		}
+		
+	}
+	
+	public var tableCellButtonFont: UIFont? {
+		get {
+			return self.permissionsView.tableCellButtonFont
+		}
+		
+		set(font) {
+			self.permissionsView.tableCellButtonFont = font
+		}
+		
+	}
+	
 	public var tintColor: UIColor {
 		get {
 			return self.permissionsView.tintColor
@@ -155,29 +188,15 @@ open class PAPermissionsViewController: UIViewController, PAPermissionsViewDeleg
 	}
 	
 	func permissionsView(_ view: PAPermissionsView, checkStatus permission: PAPermissionsItem) {
-		if let permissionsCheck = self.permissionHandlers[permission.identifier] {
-			permissionsCheck.checkStatus()
-		}else{
-			//Custom code, should not reach here
-		}
+		self.permissionHandlers[permission.identifier]?.checkStatus()
 	}
 	
 	func permissionsView(_ view: PAPermissionsView, permissionSelected permission: PAPermissionsItem) {
-		if let permissionsCheck = self.permissionHandlers[permission.identifier] {
-			permissionsCheck.defaultAction()
-		}else{
-			//Custom code, should not reach here
-		}
+		self.permissionHandlers[permission.identifier]?.defaultAction()
 	}
 	
 	func permissionsView(_ view: PAPermissionsView, isPermissionEnabled permission: PAPermissionsItem) -> PAPermissionsStatus {
-		
-		if let permissionsCheck = self.permissionHandlers[permission.identifier] {
-			return permissionsCheck.status
-		}else{
-			//Custom code, should not reach here
-			return .unavailable
-		}
+		return self.permissionHandlers[permission.identifier]?.status ?? .unavailable
 	}
 	
 	public func permissionCheck(_ permissionCheck: PAPermissionsCheck, didCheckStatus: PAPermissionsStatus) {

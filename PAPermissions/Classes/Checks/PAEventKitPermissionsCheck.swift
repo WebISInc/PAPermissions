@@ -43,6 +43,8 @@ public class PAEKPermissionsCheck: PAPermissionsCheck {
 			status = .disabled
 		case .restricted:
 			status = .unavailable
+		@unknown default:
+			status = .disabled
 		}
 
 		if currentStatus != status {
@@ -63,7 +65,7 @@ public class PAEKPermissionsCheck: PAPermissionsCheck {
 				if success && error == nil {
 					self.status = .enabled
 				} else {
-					self.status = .disabled
+					self.status = .denied
 				}
 				self.updateStatus()
 			})

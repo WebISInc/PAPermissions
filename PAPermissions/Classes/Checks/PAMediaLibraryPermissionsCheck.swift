@@ -14,12 +14,7 @@ public class PAMediaLibraryPermissionsCheck: PAPermissionsCheck {
     
     public override func checkStatus() {
         let currentStatus = self.status
-        
-        if #available(iOS 9.3, *) {
-            self.updatePermissions(status: MPMediaLibrary.authorizationStatus())
-        } else {
-            self.status = .unavailable
-        }
+        self.updatePermissions(status: MPMediaLibrary.authorizationStatus())
         
         if self.status != currentStatus {
             self.updateStatus()
@@ -27,18 +22,12 @@ public class PAMediaLibraryPermissionsCheck: PAPermissionsCheck {
     }
     
     public override func defaultAction() {
-        
-        if #available(iOS 9.3, *) {
-            MPMediaLibrary.requestAuthorization({ (result) in
-                self.updatePermissions(status: result)
-                self.updateStatus()
-            })
-        } else {
-            // Media Library permission only available with iOS 9.3 and above
-        }
+        MPMediaLibrary.requestAuthorization({ (result) in
+			self.updatePermissions(status: result)
+			self.updateStatus()
+		})
     }
     
-    @available(iOS 9.3, *)
     private func updatePermissions(status: MPMediaLibraryAuthorizationStatus) {
 		
 		let oldStatus = self.status
@@ -52,7 +41,9 @@ public class PAMediaLibraryPermissionsCheck: PAPermissionsCheck {
 			self.status = .disabled
         case .restricted:
             self.status = .unavailable
-        }
+		@unknown default:
+			self.status = .disabled
+		}
 		
 		if oldStatus == .denied && self.status == .denied {
 			self.openSettings()

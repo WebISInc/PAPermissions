@@ -103,29 +103,29 @@ public class PAPermissionsItem {
 
 		switch type {
 		case .bluetooth:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Bluetooth", comment: ""), reason: localReason, icon: UIImage(named: "pa_bluetooth_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Bluetooth", comment: ""), reason: localReason, icon: UIImage(named: "pa_bluetooth_icon"), canBeDisabled: false)
 		case .location:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Location", comment: ""), reason: localReason, icon: UIImage(named: "pa_location_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Location", comment: ""), reason: localReason, icon: UIImage(named: "pa_location_icon"), canBeDisabled: false)
 		case .notifications:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Notifications", comment: ""), reason: localReason, icon: UIImage(named: "pa_notification_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Notifications", comment: ""), reason: localReason, icon: UIImage(named: "pa_notification_icon"), canBeDisabled: false)
 		case .microphone:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Microphone", comment: ""), reason: localReason, icon: UIImage(named: "pa_microphone_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Microphone", comment: ""), reason: localReason, icon: UIImage(named: "pa_microphone_icon"), canBeDisabled: false)
 		case .motionFitness:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Motion Fitness", comment: ""), reason: localReason, icon: UIImage(named: "pa_motion_activity_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Motion Fitness", comment: ""), reason: localReason, icon: UIImage(named: "pa_motion_activity_icon"), canBeDisabled: false)
 		case .camera:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Camera", comment: ""), reason: localReason, icon: UIImage(named: "pa_camera_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Camera", comment: ""), reason: localReason, icon: UIImage(named: "pa_camera_icon"), canBeDisabled: false)
 		case .calendar:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Calendar", comment: ""), reason: localReason, icon: UIImage(named: "pa_calendar_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Calendar", comment: ""), reason: localReason, icon: UIImage(named: "pa_calendar_icon"), canBeDisabled: false)
 		case .reminders:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Reminders", comment: ""), reason: localReason, icon: UIImage(named: "pa_reminders_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Reminders", comment: ""), reason: localReason, icon: UIImage(named: "pa_reminders_icon"), canBeDisabled: false)
 		case .contacts:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Contacts", comment: ""), reason: localReason, icon: UIImage(named: "pa_contacts_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Contacts", comment: ""), reason: localReason, icon: UIImage(named: "pa_contacts_icon"), canBeDisabled: false)
 		case .siri:
 			return PAPermissionsItem(type: type, identifier: type.rawValue, title: "Siri", reason: localReason, icon: UIImage(named: "pa_siri_icon.png")!, canBeDisabled: false)
 		case .photoLibrary:
-			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Photo Library", comment: ""), reason: localReason, icon: UIImage(named: "pa_photo_library_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+			return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Photo Library", comment: ""), reason: localReason, icon: UIImage(named: "pa_photo_library_icon"), canBeDisabled: false)
 		case .mediaLibrary:
-            return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Media Library", comment: ""), reason: localReason, icon: UIImage(named: "pa_media_library_icon", in: Bundle(for: PAPermissionsViewController.self), compatibleWith: nil), canBeDisabled: false)
+            return PAPermissionsItem(type: type, identifier: type.rawValue, title: NSLocalizedString("Media Library", comment: ""), reason: localReason, icon: UIImage(named: "pa_media_library_icon"), canBeDisabled: false)
 		default:
 			return nil
 		}
@@ -247,7 +247,6 @@ class PAPermissionsView: UIView, UITableViewDataSource, UITableViewDelegate {
 		}
 		
 		var allConstraints = [NSLayoutConstraint]()
-		//"V:|-68-[titleLabel(43)]-40-[detailsLabel(22)]-15-[tableView]-10-|"
 		let verticalConstraints = NSLayoutConstraint.constraints(
 			withVisualFormat: "V:|-58-[titleLabel(43)]-30-[detailsLabel]-15-[tableView]-10-[continueButton(30)]-20-|",
 			options: [],
@@ -288,6 +287,7 @@ class PAPermissionsView: UIView, UITableViewDataSource, UITableViewDelegate {
 		self.tableView.backgroundColor = UIColor.clear
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
+		self.tableView.estimatedRowHeight = 50.0
 		self.tableView.register(PAPermissionsTableViewCell.self, forCellReuseIdentifier: "permission-item")
 		self.tableView.tableFooterView = UIView()
 		
@@ -363,9 +363,5 @@ class PAPermissionsView: UIView, UITableViewDataSource, UITableViewDelegate {
 		}
 		
 		return cell
-	}
-	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 50
 	}
 }

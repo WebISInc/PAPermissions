@@ -43,10 +43,14 @@ public class PALocationPermissionsCheck: PAPermissionsCheck, CLLocationManagerDe
 
 		if CLLocationManager.locationServicesEnabled() {
 			switch(CLLocationManager.authorizationStatus()) {
-			case .notDetermined, .restricted, .denied:
-				self.status = PAPermissionsStatus.disabled
+			case .notDetermined, .restricted:
+				self.status = .disabled
+			case .denied:
+				self.status = .denied
 			case .authorizedAlways, .authorizedWhenInUse:
-				self.status = PAPermissionsStatus.enabled
+				self.status = .enabled
+			@unknown default:
+				self.status = .disabled
 			}
 		} else {
 			self.status = PAPermissionsStatus.disabled

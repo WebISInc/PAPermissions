@@ -9,7 +9,6 @@
 import UIKit
 import Contacts
 
-@available(iOS 9.0, *)
 public class PACNContactsPermissionsCheck: PAPermissionsCheck {
 
 	public override func checkStatus() {
@@ -24,6 +23,8 @@ public class PACNContactsPermissionsCheck: PAPermissionsCheck {
 			status = .disabled
 		case .restricted:
 			status = .unavailable
+		@unknown default:
+			status = .disabled
 		}
 
 		if currentStatus != status {
@@ -40,7 +41,7 @@ public class PACNContactsPermissionsCheck: PAPermissionsCheck {
 				if success && error == nil {
 					self.status = .enabled
 				} else {
-					self.status = .disabled
+					self.status = .denied
 				}
 				self.updateStatus()
 			}
